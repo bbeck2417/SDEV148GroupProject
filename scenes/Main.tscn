@@ -1,3 +1,40 @@
 [gd_scene format=3 uid="uid://djvvh5okx2u40"]
 
+[ext_resource type="PackedScene" uid="uid://ce0f4j1wplul2" path="res://scenes/Snake.tscn" id="1_0bbpv"]
+[ext_resource type="Script" uid="uid://c6li4h0agvc6x" path="res://scripts/game_controller.gd" id="1_rarhs"]
+[ext_resource type="PackedScene" uid="uid://lcjgy0vc3lav" path="res://scenes/Apple.tscn" id="2_rarhs"]
+[ext_resource type="PackedScene" uid="uid://b4a3l4fopt41k" path="res://scenes/HUD.tscn" id="3_vcsgt"]
+
 [node name="Main" type="Node2D" unique_id=1583269660]
+script = ExtResource("1_rarhs")
+
+[node name="Board" type="ColorRect" parent="." unique_id=1317947077]
+offset_left = 96.0
+offset_top = 96.0
+offset_right = 864.0
+offset_bottom = 608.0
+color = Color(3.008172e-08, 0, 0.2567142, 1)
+
+[node name="Snake" parent="." unique_id=1088614882 instance=ExtResource("1_0bbpv")]
+position = Vector2(96, 96)
+
+[node name="Apple" parent="." unique_id=270080960 instance=ExtResource("2_rarhs")]
+position = Vector2(96, 96)
+
+[node name="MoveTimer" type="Timer" parent="." unique_id=436836867]
+wait_time = 0.15
+
+[node name="HUD" parent="." unique_id=959721246 instance=ExtResource("3_vcsgt")]
+
+[node name="TitleLabel" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="0" unique_id=512449711]
+text = "Fuzzy Snake"
+horizontal_alignment = 1
+
+[node name="RestartButton" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="3" unique_id=1488921546]
+visible = true
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="pressed" from="HUD/Interface/CenterPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="HUD/Interface/CenterPanel/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+
+[editable path="HUD"]

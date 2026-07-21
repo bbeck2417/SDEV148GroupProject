@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://lcjgy0vc3lav"]
 
+[ext_resource type="Script" uid="uid://bwc1yuldpk0qv" path="res://scripts/apple.gd" id="1_nm403"]
+
 [node name="Apple" type="Node2D" unique_id=270080960]
+script = ExtResource("1_nm403")
