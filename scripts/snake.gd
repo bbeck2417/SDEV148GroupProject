@@ -65,11 +65,11 @@ func would_collide(cell, growing):
 func occupies_cell(cell):
 	return cell in body
 	
-func draw():
+func _draw():
 	for index in range(body.size()):
 		var cell = body[index]
-		var pixel_position = Vector2(cell) * cell_size
-		var segment_rectangle = Rect2(pixel_position + Vector2(2, 2), Vector2(cell_size - 4, cell_size - 4))
+		var pixel_position = Vector2i(cell) * cell_size
+		var segment_rectangle = Rect2(pixel_position + Vector2i(2, 2), Vector2i(cell_size - 4, cell_size - 4))
 		
 		if index == 0:
 			draw_rect(segment_rectangle, head_color)

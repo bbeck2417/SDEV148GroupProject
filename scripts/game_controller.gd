@@ -1,3 +1,4 @@
+#game_cotroller.gd
 extends Node2D
 
 var grid_columns = 24
@@ -36,10 +37,60 @@ func update_score_label():
 func _on_move_timer_timeout() -> void:
 	pass # Replace with function body.
 
+func place_apple():
+	var available_cells = []
 
-func _on_start_button_pressed() -> void:
-	pass # Replace with function body.
+	for row in range(grid_rows):
+		for column in range(grid_columns):
+			var cell = Vector2i(column, row)
+
+			if not snake.occupies_cell(cell):
+				available_cells.append(cell)
+
+	if available_cells.is_empty():
+		apple.visible = false
+		return false
+
+	var chosen_cell = available_cells.pick_random()
+	apple.place_at(chosen_cell)
+	apple.visible = true
+	return true
+
+func _on_start_button_pressed():
+	start_game()
 
 
-func _on_restart_button_pressed() -> void:
-	pass # Replace with function body.
+func _on_restart_button_pressed():
+	start_game()
+
+func start_game():
+	move_timer.stop()
+	score = 0
+	game_running = true
+	snake.reset()
+	update_score_label()
+	center_panel.visible = false
+	place_apple()
+	move_timer.start()
+
+func finish_game():
+	game_running = false
+	move_timer.stop()
+	center_panel.visible = true
+	message_label.text = "Game Over"
+	start_button.visible = false
+	restart_button.visible = true
+
+func _unhandled_input(event):
+	if not game_running:
+		return
+		
+	if event.is_action_pressed("move_up"):
+		snake.request_direction(Vector2i.UP)
+	if event.is_action_pressed("move_down"):
+		snake.request_direction(Vector2i.DOWN)
+	if event.is_action_pressed("move_left"):
+		snake.request_direction(Vector2i.LEFT)
+	if event.is_action_pressed("move_right"):
+		snake.request_direction(Vector2i.RIGHT)
+	
