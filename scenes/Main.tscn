@@ -26,9 +26,19 @@ wait_time = 0.15
 
 [node name="HUD" parent="." unique_id=959721246 instance=ExtResource("3_vcsgt")]
 
+[node name="ScoreLabel" parent="HUD/Interface" parent_id_path=PackedInt32Array(959721246, 101755055) index="0" unique_id=1391386278]
+theme_override_font_sizes/font_size = 24
+
 [node name="TitleLabel" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="0" unique_id=512449711]
+theme_override_font_sizes/font_size = 40
 text = "Fuzzy Snake"
 horizontal_alignment = 1
+
+[node name="MessageLabel" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="1" unique_id=368677232]
+theme_override_font_sizes/font_size = 24
+
+[node name="StartButton" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="2" unique_id=89174013]
+theme_override_font_sizes/font_size = 24
 
 [node name="RestartButton" parent="HUD/Interface/CenterPanel/VBoxContainer" parent_id_path=PackedInt32Array(959721246, 1289236990) index="3" unique_id=1488921546]
 visible = true
