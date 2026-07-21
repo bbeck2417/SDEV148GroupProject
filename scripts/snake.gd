@@ -49,3 +49,29 @@ func advance(growing):
 	current_direction = next_direction
 	turn_ready = true
 	queue_redraw()
+	
+func would_collide(cell, growing):
+	var cells_to_check = body.size()
+	
+	if not growing:
+		cells_to_check -= 1
+		
+	for index in range(cells_to_check):
+		if body[index] == cell:
+			return true
+	
+	return false
+	
+func occupies_cell(cell):
+	return cell in body
+	
+func draw():
+	for index in range(body.size()):
+		var cell = body[index]
+		var pixel_position = Vector2(cell) * cell_size
+		var segment_rectangle = Rect2(pixel_position + Vector2(2, 2), Vector2(cell_size - 4, cell_size - 4))
+		
+		if index == 0:
+			draw_rect(segment_rectangle, head_color)
+		else:
+			draw_rect(segment_rectangle, body_color)
