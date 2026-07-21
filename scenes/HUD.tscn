@@ -1,3 +1,51 @@
 [gd_scene format=3 uid="uid://b4a3l4fopt41k"]
 
-[node name="Hud" type="Node2D" unique_id=46860678]
+[node name="HUD" type="CanvasLayer" unique_id=959721246]
+
+[node name="Interface" type="Control" parent="." unique_id=101755055]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Interface" unique_id=1391386278]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score: 0"
+
+[node name="CenterPanel" type="PanelContainer" parent="Interface" unique_id=832395562]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -37.0
+offset_right = 20.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/CenterPanel" unique_id=1289236990]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Interface/CenterPanel/VBoxContainer" unique_id=512449711]
+layout_mode = 2
+text = "Snake"
+
+[node name="MessageLabel" type="Label" parent="Interface/CenterPanel/VBoxContainer" unique_id=368677232]
+layout_mode = 2
+text = "Use Arrow Keys or WASD"
+
+[node name="StartButton" type="Button" parent="Interface/CenterPanel/VBoxContainer" unique_id=89174013]
+layout_mode = 2
+text = "Start Game"
+
+[node name="RestartButton" type="Button" parent="Interface/CenterPanel/VBoxContainer" unique_id=1488921546]
+visible = false
+layout_mode = 2
+text = "Restart Game"
