@@ -34,8 +34,41 @@ func update_score_label():
 	score_label.text = "Score: " + str(score)
 
 
-func _on_move_timer_timeout() -> void:
-	pass # Replace with function body.
+func _on_move_timer_timeout():
+	if not game_running:
+		return
+	
+	var next_head = snake.get_next_head_position()
+	var growing = next_head == apple.grid_position
+	
+	if is_outside_board(next_head):
+		finish_game("Game Over - You hit the wall")
+		return
+	
+	if snake.would_collide(next_head, growing):
+		finish_game("Game Over - You hit the snake")
+		return
+	
+	snake.advance(growing)
+	
+	if growing:
+		score += points_per_apple
+		update_score_label()
+		
+		if not place_apple():
+			finish_game("You Win!")
+			
+func is_outside_board(cell):
+	if cell.x < 0:
+		return true
+	if cell.x >= grid_columns:
+		return true
+	if cell.y < 0:
+		return true
+	if cell.y >= grid_rows:
+		return true
+	return false
+	
 
 func place_apple():
 	var available_cells = []
@@ -73,11 +106,11 @@ func start_game():
 	place_apple()
 	move_timer.start()
 
-func finish_game():
+func finish_game(message):
 	game_running = false
 	move_timer.stop()
 	center_panel.visible = true
-	message_label.text = "Game Over"
+	message_label.text = message
 	start_button.visible = false
 	restart_button.visible = true
 
