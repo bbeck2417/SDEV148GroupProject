@@ -1,8 +1,11 @@
 extends Node2D
 
 var cell_size = 32
-var body_color = Color(0.20, 0.70, 0.28)
-var head_color = Color(0.55, 0.95, 0.30)
+#var body_color = Color(0.20, 0.70, 0.28)
+#var head_color = Color(0.55, 0.95, 0.30)
+
+var body_texture = preload("res://assets/snake_body.png")
+var head_texture = preload("res://assets/snake_head.png")
 
 var body = []
 var current_direction = Vector2i.RIGHT
@@ -65,13 +68,60 @@ func would_collide(cell, growing):
 func occupies_cell(cell):
 	return cell in body
 	
+	
 func _draw():
 	for index in range(body.size()):
 		var cell = body[index]
-		var pixel_position = Vector2i(cell) * cell_size
-		var segment_rectangle = Rect2(pixel_position + Vector2i(2, 2), Vector2i(cell_size - 4, cell_size - 4))
-		
+		var pixel_position = Vector2(cell) * cell_size
+
 		if index == 0:
-			draw_rect(segment_rectangle, head_color)
+			var head_center = pixel_position + Vector2(
+				cell_size / 2.0,
+				cell_size / 2.0
+			)
+
+			var centered_rectangle = Rect2(
+				Vector2(-cell_size / 2.0, -cell_size / 2.0),
+				Vector2(cell_size, cell_size)
+			)
+
+			var head_rotation = Vector2(current_direction).angle()
+
+			draw_set_transform(
+				head_center,
+				head_rotation,
+				Vector2.ONE
+			)
+
+			draw_texture_rect(
+				head_texture,
+				centered_rectangle,
+				false
+			)
+
+			draw_set_transform(
+				Vector2.ZERO,
+				0.0,
+				Vector2.ONE
+			)
 		else:
-			draw_rect(segment_rectangle, body_color)
+			var body_rectangle = Rect2(
+				pixel_position,
+				Vector2(cell_size, cell_size)
+			)
+
+			draw_texture_rect(
+				body_texture,
+				body_rectangle,
+				false
+			)
+#func _draw():
+	#for index in range(body.size()):
+		#var cell = body[index]
+		#var pixel_position = Vector2(cell) * cell_size
+		#var segment_rectangle = Rect2(pixel_position + Vector2(2, 2), Vector2(cell_size - 4, cell_size - 4))
+		#
+		#if index == 0:
+			#draw_rect(segment_rectangle, head_color)
+		#else:
+			#draw_rect(segment_rectangle, body_color)

@@ -26,7 +26,7 @@ func _ready():
 func show_start_screen():
 	game_running = false
 	center_panel.visible = true
-	message_label.text = "Use Arrow Keys or WASD"
+	message_label.text = "Use Arrow Keys or WASD\nPress Space to Start"
 	start_button.visible = true
 	restart_button.visible = false
 	
@@ -114,6 +114,11 @@ func finish_game(message):
 	start_button.visible = false
 	restart_button.visible = true
 
+func _input(event):
+	if event.is_action_pressed("start_game") and not game_running:
+		start_game()
+		get_viewport().set_input_as_handled()
+		
 func _unhandled_input(event):
 	if not game_running:
 		return
